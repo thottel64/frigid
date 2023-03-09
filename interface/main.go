@@ -56,11 +56,11 @@ func main() {
 	var input string
 	for {
 		fmt.Println("To search for recipes by ingredients you want to use, enter 'search'")
-		fmt.Println("To like a recipe, enter 'like'")
+		fmt.Println("To like a recipe and add it to your list of likes, enter 'like'")
 		fmt.Println("To view recipes you've liked, enter 'mylikes'")
 		fmt.Println("If you'd like to remove a recipe from your likes, enter 'remove'")
-		fmt.Println("To upload your own recipe, enter 'upload'")
-		fmt.Println("See a typo or some incomplete information in a recipe? enter 'update' to fix it.")
+		fmt.Println("To build and upload your own recipe, enter 'upload'")
+		fmt.Println("See a typo or some incomplete information in a recipe? enter 'update' to update an existing recipe.")
 		fmt.Println("To exit the program, enter 'exit'")
 		fmt.Scanln(&input)
 		if input == "search" {
@@ -91,7 +91,7 @@ func main() {
 			}
 			for {
 				var rID string
-				fmt.Println("If you would like to see the instructions and ingredients for a recipe, enter the recipe_id number next to the recipe. If you wish to go back to the main menu, enter 'home'")
+				fmt.Println("If you would like to see additional details for a recipe, enter the recipe_id number next to the recipe. If you wish to go back to the main menu, enter 'home'")
 				fmt.Scanln(&rID)
 				if rID == "home" {
 					break
@@ -119,7 +119,7 @@ func main() {
 		}
 		if input == "remove" {
 			var removethisID string
-			fmt.Println("Please enter the recipe ID of the recipe you wish to remove from your liked recipes")
+			fmt.Println("Please enter the recipe ID of the recipe you wish to remove from your liked recipes.")
 			fmt.Scanln(&removethisID)
 			intid, err := strconv.Atoi(removethisID)
 			if err != nil {
@@ -155,7 +155,7 @@ func main() {
 				log.Fatalln(err)
 			}
 			recipe.Ingredients = ingredients
-			fmt.Println("Next, enter all the steps required to make your dish")
+			fmt.Println("Next, enter all the steps required to make your dish, separated by commas")
 			instructions, err := reader.ReadString('\n')
 			if err != nil {
 				log.Println("Unable to read string")
@@ -170,7 +170,7 @@ func main() {
 		}
 		if input == "update" {
 			var recipe Recipe
-			fmt.Println("Thanks for helping out! First, please enter the recipe ID for the recipe you would like to update.")
+			fmt.Println("First, please enter the recipe ID for the recipe you would like to update.")
 			var recipeID string
 			for {
 				_, err := fmt.Scanln(&recipeID)
@@ -196,7 +196,7 @@ func main() {
 				break
 			}
 			var issue string
-			fmt.Println("Great! Here's the recipe you requested. Which component of the recipe has an issue?")
+			fmt.Println("Great! Here's the recipe you requested. Which component of the recipe would you like to update?")
 			for {
 				fmt.Println(recipe.Recipe_Name)
 				fmt.Println("------------------")
@@ -219,7 +219,7 @@ func main() {
 					log.Fatalln(err)
 				}
 				if issue == "name" {
-					fmt.Println("Please enter the corrected name for this recipe")
+					fmt.Println("Please enter the new name for this recipe")
 					reader := bufio.NewReader(os.Stdin)
 					newname, err := reader.ReadString('\n')
 					if err != nil {
@@ -228,7 +228,7 @@ func main() {
 					recipe.Recipe_Name = newname
 				}
 				if issue == "description" {
-					fmt.Println("Please enter a new, corrected description for this recipe")
+					fmt.Println("Please enter a new description for this recipe")
 					reader := bufio.NewReader(os.Stdin)
 					newdesc, err := reader.ReadString('\n')
 					if err != nil {
@@ -246,7 +246,7 @@ func main() {
 					recipe.Ingredients = ingredientslist
 				}
 				if issue == "instructions" {
-					fmt.Println("Please enter the corrected instructions for this recipe")
+					fmt.Println("Please enter the new list of instructions for this recipe, separated by commas")
 					reader := bufio.NewReader(os.Stdin)
 					instructions, err := reader.ReadString('\n')
 					if err != nil {
