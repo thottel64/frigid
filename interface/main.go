@@ -101,6 +101,7 @@ func main() {
 					log.Println("error: invalid user input")
 					log.Fatalln(err)
 				}
+				var found bool
 				for _, rating := range ratings {
 					if rIDstring == rating.Recipe_id {
 						recipe := GetRecipeByID(rating.Recipe_id)
@@ -108,9 +109,11 @@ func main() {
 						fmt.Println(recipe.Description)
 						fmt.Println(recipe.Ingredients)
 						fmt.Println(recipe.Instructions)
-					} else {
-						fmt.Println("No liked recipe with that recipe id can be found. If you'd like to add this recipe to your likes, please go back to the home screen and like it.")
+						found = true
 					}
+				}
+				if found == false {
+					fmt.Println("Unable to locate recipe with that ID in your liked recipes. Please make sure you are entering your recipe ID correctly.")
 				}
 			}
 		}
